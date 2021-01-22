@@ -1,0 +1,119 @@
+{
+    "mqttbroker": "raspberrypi.local",
+    "starttime": 6,
+    "weekday": [
+        "Tue",
+        "Thu",
+        "Sat"
+    ],    
+    "valves": [
+        {
+            "alias": "bubblers",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 1
+        },
+        {
+            "alias": "center_back",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 2
+        },
+        {
+            "alias": "east_back",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 3
+        },
+        {
+            "alias": "middle_front",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 4
+        },
+        {
+            "alias": "north_front",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 5
+        },
+        {
+            "alias": "south_front",
+            "runtime": {
+                "Apr": 7,
+                "Aug": 10,
+                "Dec": 5,
+                "Feb": 5,
+                "Jan": 5,
+                "Jul": 10,
+                "Jun": 7,
+                "Mar": 5,
+                "May": 7,
+                "Nov": 7,
+                "Oct": 7,
+                "Sep": 10
+            },
+            "valve_number": 6
+        }
+    ]
+}

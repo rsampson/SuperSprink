@@ -1,0 +1,26 @@
+# sprinkler system configuration yaml file. R. Sampson 12-12-2020
+mqttbroker: raspberrypi.local
+starttime: 6  # hour to start watering
+weekday: # days to do watering
+  - Tue
+  - Thu
+  - Sat
+valves: # minutes to water depending on month
+  - alias: bubblers 
+    valve_number: 1  
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5}
+  - alias: center_back 
+    valve_number: 2 
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5} 
+  - alias: east_back 
+    valve_number: 3 
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5}   
+  - alias: middle_front
+    valve_number: 4 
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5} 
+  - alias: north_front 
+    valve_number: 5 
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5}  
+  - alias: south_front 
+    valve_number: 6 
+    runtime: { Jan: 5,Feb: 5,Mar: 5, Apr: 7, May: 7, Jun: 7, Jul: 10, Aug: 10, Sep: 10, Oct: 7, Nov: 7, Dec: 5} 
