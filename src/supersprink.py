@@ -69,6 +69,8 @@ def openValve(client, valvenum=0, timeopen=10):
 	time.sleep(timeopen * 60)
 	logging.info('Closing all valves')
 	client.publish("inTopic", 0)
+	time.sleep(1) # repeat shut off for good measure
+	client.publish("inTopic", 0)
 	
 def quitBroker(client):
 	client.loop_stop()
@@ -77,7 +79,7 @@ def quitBroker(client):
 	
 def willItRain():
 	'''using weatherapi.com to retrieve weather data''' 
-	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= xxx&q=carlsbad&days=1")
+	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= dfe25c402e554fbf833191316201712&q=carlsbad&days=1")
 	if response.status_code == 200:
 		json_string = response.content.decode('utf-8')
 		weather_data = json.loads(json_string)
@@ -96,6 +98,7 @@ def operateValves(data):
 	month = now.format('MMM') # Jan,Feb,Mar ...
 
 	if(int(hour) == data['starttime'] and day in data['weekday']):
+		logging.info('Today is a watering day')
 		if(willItRain()):
 			logging.info('skipped due to rain')
 		else: #all conditions met to run valves
