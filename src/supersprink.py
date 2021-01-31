@@ -79,7 +79,7 @@ def quitBroker(client):
 	
 def willItRain():
 	'''using weatherapi.com to retrieve weather data''' 
-	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= dfe25c402e554fbf833191316201712&q=carlsbad&days=1")
+	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= &q=carlsbad&days=1")
 	if response.status_code == 200:
 		json_string = response.content.decode('utf-8')
 		weather_data = json.loads(json_string)
