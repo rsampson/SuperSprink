@@ -22,19 +22,17 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <ArduinoOTA.h>
-#include "password.h"   // keep your ssid, password, ThingSpeak channel and key in here in this format:
+#include "password.h"   // keep your private keys and passwords in this format:
 /*
-const char* ssid = "xxxx";
-const char* password = "xxxx";
-const char* APIKey = "xxxx";
-#define MYCHANNEL xxxx    
+ * EXAMPLE:
+  const char* ssid = "xxxx";
+  const char* password = "xxxx";
+  const char* APIKey = "xxxx";
+  #define MYCHANNEL xxxx
+  const char* mqtt_server = "xxxx";
 */
 
 #define MAXTIME 20 // maximum minutes sprinklers can be left on.
-
-// Update these with values suitable for your network.
-
-const char* mqtt_server = "192.168.1.101";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -125,26 +123,22 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 
 void reconnect() {
-  // Loop until we're reconnected
-  while (!client.connected()) {
-    Serial.print("Attempting MQTT connection...");
-    // Create a random client ID
-    String clientId = "ESP8266Client-";
-    clientId += String(random(0xffff), HEX);
-    // Attempt to connect
-    if (client.connect(clientId.c_str())) {
-      Serial.println("connected");
-      // Once connected, publish an announcement...
-      client.publish("outTopic", "hello world");
-      // ... and resubscribe
-      client.subscribe("inTopic");
-    } else {
-      Serial.print("failed, rc=");
-      Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
-      delay(5000);
-    }
+  Serial.print("Attempting MQTT connection...");
+  // Create a random client ID
+  String clientId = "ESP8266Client-";
+  clientId += String(random(0xffff), HEX);
+  // Attempt to connect
+  if (client.connect(clientId.c_str())) {
+    Serial.println("connected");
+    // Once connected, publish an announcement...
+    client.publish("outTopic", "hello world");
+    // ... and resubscribe
+    client.subscribe("inTopic");
+  } else {
+    Serial.print("failed, rc=");
+    Serial.print(client.state());
+    Serial.println(" try again in 250 ms");
+    delay(250);
   }
 }
 
@@ -167,7 +161,7 @@ void setup() {
 
   // *** OTA stuff ***
 
-  ArduinoOTA.setHostname("sprinkler8266_test");  
+  ArduinoOTA.setHostname("sprinkler8266_test");
   ArduinoOTA.onStart([]() {
     String type;
     if (ArduinoOTA.getCommand() == U_FLASH) {
