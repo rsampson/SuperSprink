@@ -18,6 +18,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 #  
+import weatherkey as wk
 import yaml
 import paho.mqtt.client as mqtt
 import time
@@ -25,6 +26,7 @@ import logging
 import arrow  #time and date functions
 import json
 import requests
+import sys
 
 def configLog():
 	'''log time date into sprinkler.log'''
@@ -79,7 +81,7 @@ def quitBroker(client):
 	
 def willItRain():
 	'''using weatherapi.com to retrieve weather data''' 
-	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= &q=carlsbad&days=1")
+	response = requests.get("http://api.weatherapi.com/v1/forecast.json?key= " + wk.WEATHERKEY + "&q=carlsbad&days=1")
 	if response.status_code == 200:
 		json_string = response.content.decode('utf-8')
 		weather_data = json.loads(json_string)
@@ -89,6 +91,13 @@ def willItRain():
 	else:
 		loggin.info('failed to get weather')
 		return(False)
+        
+def runValves(data, month = "Jan"):
+	client = startBroker()
+	for v in data['valves']:
+		logging.info(v['alias'])
+		openValve(client, v['valve_number'], v['runtime'][month] )
+	quitBroker(client)
 	
 def operateValves(data):
 	'''run sprinklers if time matches config starttime and weekday'''
@@ -103,11 +112,9 @@ def operateValves(data):
 			logging.info('skipped due to rain')
 		else: #all conditions met to run valves
 			logging.info('good weather')
-			client = startBroker()
-			for v in data['valves']:
-				logging.info(v['alias'])
-				openValve(client, v['valve_number'], v['runtime'][month] )
-			quitBroker(client)
+			runValves(data)
+	elif (len(sys.argv) >= 2 and sys.argv[1] == "now"): # run now for test
+		runValves(data)
 	else:
 		logging.info('null run')
 

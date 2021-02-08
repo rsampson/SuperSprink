@@ -1,7 +1,7 @@
 password.h
 ./sprinkler/password.h
-key.txt
-./src/key.txt
+weatherkey.py
+./src/weatherkey.py
 
 *.d
 
