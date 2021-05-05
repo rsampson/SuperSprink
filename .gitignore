@@ -2,6 +2,14 @@ password.h
 ./sprinkler/password.h
 weatherkey.py
 ./src/weatherkey.py
+lib64
+share
+bin
+pyvenv.cfg
+./src/lib64
+./src/share
+./src/bin
+./src/pyvenv.cfg
 
 *.d
 
