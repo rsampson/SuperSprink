@@ -5,7 +5,7 @@
   Relay board data at:
   http://wiki.sunfounder.cc/index.php?title=8_Channel_5V_Relay_Module&utm_source=thenewstack&utm_medium=website
 
-  Test with:   mosquitto_pub -h 192.168.1.107 -t inTopic -m 1
+  Test with:   mosquitto_pub -h 192.168.1.111 -t inTopic -m 1
 
   Sprinkler station connections:
   relay pin  NodeMCU GPIO  NodeMCU physical pin
@@ -39,8 +39,6 @@ PubSubClient client(espClient);
 long lastMsg = 0;
 char msg[50];
 int value = 0;
-
-void(* resetFunc) (void) = 0;  // declare reset fuction at address 0
 
 void allOff() { // turn all sprinkler stations off
   digitalWrite(16, HIGH);
@@ -87,38 +85,56 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println();
 
   allOff(); // only allow one station on at a time
+  allOff();
+  allOff();
 
+  bool ran = false;
+  
   // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '1') {
     digitalWrite(16, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '2') {
     digitalWrite(5, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '3') {
     digitalWrite(4, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '4') {
     digitalWrite(0, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '5') {
     digitalWrite(2, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '6') {
     digitalWrite(14, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '7') {
     digitalWrite(12, LOW);
+    ran = true;
   }
   else if ((char)payload[0] == '8') {
     digitalWrite(13, LOW);
-  }
-  else if ((char)payload[0] == 'f') { // reset cpu command
-    resetFunc();
+    ran = true;
   }
   else {
     allOff();
+    allOff();
+    allOff();
   }
+  
+  if(ran){
+    // echo message received back to mqtt server
+    snprintf (msg, 50, "activate #%ld", payload[0]);
+    client.publish("outTopic", msg);
+  }
+  
   lastMsg = millis(); // for max timeout
 }
 
@@ -153,7 +169,9 @@ void setup() {
   pinMode(13, OUTPUT);
 
   allOff();
-
+  allOff();
+  allOff()
+  
   Serial.begin(115200);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
