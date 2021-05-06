@@ -52,7 +52,7 @@ def onconnect(client, userdata, flags, rc):
 
 def startBroker():
 	'''communicate to controller box with mqtt'''
-	mqttBroker ="raspberrypi.local"
+	mqttBroker = "spigot.local"
 	client = mqtt.Client("Sprinkler_valve")
 	client.on_connect=onconnect  #bind call back function
 	client.connect(mqttBroker)
