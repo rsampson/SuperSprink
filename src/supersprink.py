@@ -112,9 +112,9 @@ def operateValves(data):
 			logging.info('skipped due to rain')
 		else: #all conditions met to run valves
 			logging.info('good weather')
-			runValves(data)
+			runValves(data, month)
 	elif (len(sys.argv) >= 2 and sys.argv[1] == "now"): # run now for test
-		runValves(data)
+		runValves(data, month)
 	else:
 		logging.info('null run')
 

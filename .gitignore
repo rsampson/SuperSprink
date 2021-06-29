@@ -10,6 +10,8 @@ pyvenv.cfg
 ./src/share
 ./src/bin
 ./src/pyvenv.cfg
+./src/src/Pipfile
+./src/src/Pipfile.lock
 
 *.d
 
