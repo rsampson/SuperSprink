@@ -12,6 +12,10 @@ pyvenv.cfg
 ./src/pyvenv.cfg
 ./src/src/Pipfile
 ./src/src/Pipfile.lock
+./src/Pipfile
+./src/Pipfile.lock
+./Pipfile
+./Pipfile.lock
 
 *.d
 
